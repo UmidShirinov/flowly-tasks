@@ -54,7 +54,7 @@ CREATE TABLE Users (
         CONSTRAINT FK_PasswordResetTokens_Users FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
     );
 
-    -- 21. RefreshTokens Table
+    -- 21. RefreshTokens Tablee
     CREATE TABLE RefreshTokens (
         Id SERIAL PRIMARY KEY,
         UserId INT NOT NULL,
