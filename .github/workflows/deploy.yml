@@ -1,0 +1,25 @@
+name: Deploy to GCP VM
+
+on:
+  push:
+    branches: [ "main" ] # Kodu 'main' branch-inə push etdikdə avtomatik işə düşürrrrr
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to GCP VM via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/flowly-tasks
+            git pull origin main
+            docker compose down
+            docker compose up -d --build
