@@ -83,3 +83,40 @@ CREATE TABLE Users (
     );
 
 
+    --Task table 
+    CREATE TABLE Tasks (
+        Id SERIAL PRIMARY KEY,
+        Title VARCHAR(255) NOT NULL,
+        Description TEXT,
+        Status VARCHAR(50) NOT NULL DEFAULT 'Pending', -- Pending, InProgress, Completed, OnHold, etc.
+        Priority VARCHAR(50) NOT NULL DEFAULT 'Medium', -- Low, Medium, High, Urgent
+        StartDate DATE,
+        DueDate DATE,
+        CompletedDate DATE,
+        CreatedById INT NOT NULL,
+        AssignedToId INT,
+        DepartmentId INT,
+        IsDeleted BOOLEAN DEFAULT FALSE,
+        CreatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        UpdatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT FK_Tasks_Users_CreatedBy FOREIGN KEY (CreatedById) REFERENCES Users(Id),
+        CONSTRAINT FK_Tasks_Users_AssignedTo FOREIGN KEY (AssignedToId) REFERENCES Users(Id),
+        CONSTRAINT FK_Tasks_Departments FOREIGN KEY (DepartmentId) REFERENCES Departments(Id)
+    );
+
+-- -- TaskAttachments Table
+-- CREATE TABLE TaskAttachments (
+--     Id SERIAL PRIMARY KEY,
+--     TaskId INT NOT NULL,
+--     FileName VARCHAR(255) NOT NULL,
+--     FilePath TEXT NOT NULL,
+--     FileType VARCHAR(100),
+--     FileSize BIGINT,
+--     UploadedById INT NOT NULL,
+--     UploadedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--     CONSTRAINT FK_TaskAttachments_Tasks FOREIGN KEY (TaskId) REFERENCES Tasks(Id) ON DELETE CASCADE,
+--     CONSTRAINT FK_TaskAttachments_Users FOREIGN KEY (UploadedById) REFERENCES Users(Id)
+-- );
+
+
+
