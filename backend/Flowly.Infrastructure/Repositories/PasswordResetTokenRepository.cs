@@ -4,7 +4,7 @@ using Flowly.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System.Data;
-using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
 
 namespace Flowly.Infrastructure.Repositories;
 

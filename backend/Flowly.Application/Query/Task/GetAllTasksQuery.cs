@@ -1,5 +1,5 @@
 using MediatR;
-using Flowly.Domain.Entities;
+using Flowly.Application.DTOs;
 
 namespace Flowly.Application.Query.Task.GetAllTasks;
 

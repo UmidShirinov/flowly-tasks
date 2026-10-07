@@ -1,5 +1,8 @@
 using AutoMapper;
 using Flowly.Application.Commands.Auth.Register;
+using Flowly.Application.Commands.Task.CreateTask;
+using Flowly.Application.DTOs;
+using TaskEntity = Flowly.Domain.Entities.Task;
 using Flowly.Domain.Entities;
 
 namespace Flowly.Application.Mappings;
@@ -18,5 +21,8 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.IsActive, opt => opt.Ignore())
             .ForMember(dest => dest.AvatarUrl, opt => opt.Ignore())
             .ForMember(dest => dest.Role, opt => opt.Ignore());
+
+        CreateMap<CreateTaskCommand, TaskEntity>();
+        CreateMap<TaskEntity, AddTaskDto>();
     }
 }

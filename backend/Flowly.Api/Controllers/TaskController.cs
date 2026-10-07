@@ -1,7 +1,5 @@
-using Flowly.Application.Commands.Task.AddTask;
-using Flowly.Application.Commands.Task.DeleteTask;
-using Flowly.Application.Commands.Task.UpdateTask;
-using Flowly.Application.Commands.Task.GetAllTasks;
+using Flowly.Application.Commands.Task.CreateTask;
+using Flowly.Application.Query.Task.GetAllTasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +23,6 @@ public class TaskController : ControllerBase
     {
         try 
         {
-
             var result = await _mediator.Send(command);
 
             if (result)
@@ -49,7 +46,7 @@ public class TaskController : ControllerBase
     {
         try 
         {
-            var tasks = await _mediator.Send(new GetAllTasksCommand());
+            var tasks = await _mediator.Send(new GetAllTasksQuery());
             return Ok(tasks);
         }
         catch (Exception ex)
@@ -58,6 +55,4 @@ public class TaskController : ControllerBase
             return BadRequest(new { message = "Tasklar alinar zamanı xəta baş verdi" });
         }
     }
-
-    
 }

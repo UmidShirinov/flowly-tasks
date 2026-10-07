@@ -1,9 +1,9 @@
 using MediatR;
-using Flowly.Domain.Entities;
-using Flowly.Domain.Interfaces;
+using AutoMapper;
 using Microsoft.Extensions.Logging;
+using Flowly.Application.Interfaces;
 using Flowly.Application.DTOs;
-using Mapping;
+using EntityTask = Flowly.Domain.Entities.Task;
 
 namespace Flowly.Application.Commands.Task.CreateTask;
 
@@ -24,14 +24,14 @@ public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, bool>
     {
         try
         {
-            var task = _mapper.Map<Task>(request);
+            var task = _mapper.Map<EntityTask>(request);
 
             return await _taskRepository.CreateAsync(task);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Task yaratma zamani xəta baş verdi");
-            return 0;
+            return false;
         }
     }
 }

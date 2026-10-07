@@ -1,4 +1,5 @@
 using Flowly.Domain.Entities;
+using Task = System.Threading.Tasks.Task;
 
 namespace Flowly.Application.Interfaces;
 

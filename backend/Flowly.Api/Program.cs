@@ -65,6 +65,7 @@ builder.Services.AddScoped<Flowly.Application.Interfaces.ITokenService, Flowly.I
 builder.Services.AddScoped<Flowly.Application.Interfaces.IPasswordResetTokenRepository, Flowly.Infrastructure.Repositories.PasswordResetTokenRepository>();
 builder.Services.AddScoped<Flowly.Application.Interfaces.ITeamsRepository, Flowly.Infrastructure.Repositories.TeamsRepository>();
 builder.Services.AddScoped<Flowly.Application.Interfaces.IDepartmentRepository, Flowly.Infrastructure.Repositories.DepartmentRepository>();
+builder.Services.AddScoped<Flowly.Application.Interfaces.ITaskRepository, Flowly.Infrastructure.Repositories.TaskRepository>();
 
 // Logging əlavə edirik (DbSeeder üçün lazımdır)
 builder.Services.AddLogging();

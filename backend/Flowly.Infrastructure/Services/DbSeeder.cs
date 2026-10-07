@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Npgsql;
+using Task = System.Threading.Tasks.Task;
 
 namespace Flowly.Infrastructure.Services;
 

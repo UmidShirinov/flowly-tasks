@@ -1,5 +1,8 @@
 using MediatR;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
 using Flowly.Application.DTOs;
+using Flowly.Application.Interfaces;
 
 namespace Flowly.Application.Query.Task.GetAllTasks;
 
@@ -26,7 +29,7 @@ public class GetAllTasksQueryHandler : IRequestHandler<GetAllTasksQuery, List<Ad
         catch (Exception ex)
         {
             _logger.LogError(ex, "Tasklar alinar zamanı xəta baş verdi");
-            return null;
+            return new List<AddTaskDto>();
         }
     }
 }
