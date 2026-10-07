@@ -1,16 +1,61 @@
-services:
+# services:
 
-  api:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-    container_name: flowly-api
-    ports:
-      - "5064:8080"
-    environment:
-      ConnectionStrings__DefaultConnection: "Server=flowly-postgres;Port=5432;Database=JiraDb;User Id=postgres;Password=Umid1234.;"
-    depends_on:
-      - postgres
+#   api:
+#     build:
+#       context: .
+#       dockerfile: docker/Dockerfile
+#     container_name: flowly-api
+#     ports:
+#       - "5064:8080"
+#     environment:
+#       ConnectionStrings__DefaultConnection: "Server=flowly-postgres;Port=5432;Database=JiraDb;User Id=postgres;Password=Umid1234.;"
+#     depends_on:
+#       - postgres
+
+#   postgres:
+#     image: postgres:16
+#     container_name: flowly-postgres
+#     restart: always
+#     ports:
+#       - "5433:5432"
+#     environment:
+#       POSTGRES_DB: JiraDb
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: Umid1234.
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#       - ./database_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U postgres -d JiraDb"]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 5
+#   pgadmin:
+#     image: dpage/pgadmin4:latest
+#     container_name: flowly-pgadmin-local
+#     restart: always
+#     ports:
+#       - "5050:80"
+#     environment:
+#       PGADMIN_DEFAULT_EMAIL: admin@admin.com
+#       PGADMIN_DEFAULT_PASSWORD: Umid1234.
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+#   frontend:
+#     build:
+#       context: ./frontend
+#       dockerfile: src/Dockerfile
+#     container_name: flowly-frontend
+#     ports:
+#       - "3000:80"
+#     depends_on:
+#       - api
+
+# volumes:
+#   postgres_data:
+
+services:
 
   postgres:
     image: postgres:16
@@ -25,6 +70,37 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database_schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d JiraDb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: flowly-api
+    ports:
+      - "5064:8080"
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=flowly-postgres;Port=5432;Database=JiraDb;Username=postgres;Password=Umid1234.;"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: flowly-pgadmin-local
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: Umid1234.
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   frontend:
     build:
